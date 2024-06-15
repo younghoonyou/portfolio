@@ -152,10 +152,10 @@ const ProjectDetail = ({ open, setOpen, title }) => {
                         width={title === 'Felix' ? 80 : 40}
                         src={
                             title === 'Felix'
-                                ? '/images/Felix.png'
-                                : '/images/github.256x251.png'
+                                ? 'images/Felix.png'
+                                : 'images/github.256x251.png'
                         }
-                        alt="Images"
+                        alt={`For ${title}`}
                     />
                 </Button>
                 <Button variant="contained" onClick={handleClose}>
