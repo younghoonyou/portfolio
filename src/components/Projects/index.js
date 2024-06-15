@@ -152,9 +152,8 @@ const ProjectDetail = ({ open, setOpen, title }) => {
                         width={title === 'Felix' ? 80 : 40}
                         src={
                             title === 'Felix'
-                                ? process.env.PUBLIC_URL + '/assets/Felix.png'
-                                : process.env.PUBLIC_URL +
-                                  '/assets/github.256x251.png'
+                                ? '/images/Felix.png'
+                                : '/images/github.256x251.png'
                         }
                         alt="Images"
                     />

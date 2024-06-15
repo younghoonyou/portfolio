@@ -49,7 +49,7 @@ const HoverableMesh = ({
 
 const Room = ({ bgColor, setBgColor }) => {
     const dispatch = useDispatch();
-    const { nodes, materials } = useGLTF('/assets/room.glb');
+    const { nodes, materials } = useGLTF('/model/room.glb');
 
     const [title, setTitle] = useState('Felix');
     const [cameraTarget, setCameraTarget] = useState(new THREE.Vector3());
@@ -502,6 +502,6 @@ const Room = ({ bgColor, setBgColor }) => {
     );
 };
 
-useGLTF.preload('/assets/room.glb');
+useGLTF.preload('/model/room.glb');
 
 export default Room;
