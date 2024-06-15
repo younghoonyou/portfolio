@@ -14,7 +14,7 @@ const steps = [
         label: 'About me',
     },
     {
-        label: 'Projects',
+        label: 'Work & Project',
     },
     {
         label: 'Contacts',
