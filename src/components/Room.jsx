@@ -5,6 +5,7 @@ import ProjectDetail from './Projects';
 import { useDispatch, useSelector } from 'react-redux';
 import * as THREE from 'three';
 import { setCamera } from '../reducer/cameraReducer';
+import GLBModel from '../model/room.glb';
 
 const CONTACT_URL = {
     gmail: 'mailto:0623hoon@gmail.com',
@@ -49,7 +50,7 @@ const HoverableMesh = ({
 
 const Room = ({ bgColor, setBgColor }) => {
     const dispatch = useDispatch();
-    const { nodes, materials } = useGLTF('/model/room.glb');
+    const { nodes, materials } = useGLTF(GLBModel);
 
     const [title, setTitle] = useState('Felix');
     const [cameraTarget, setCameraTarget] = useState(new THREE.Vector3());
@@ -502,6 +503,6 @@ const Room = ({ bgColor, setBgColor }) => {
     );
 };
 
-useGLTF.preload('/model/room.glb');
+useGLTF.preload(GLBModel);
 
 export default Room;
