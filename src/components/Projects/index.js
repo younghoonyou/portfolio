@@ -152,8 +152,8 @@ const ProjectDetail = ({ open, setOpen, title }) => {
                         width={title === 'Felix' ? 80 : 40}
                         src={
                             title === 'Felix'
-                                ? 'images/Felix.png'
-                                : 'images/github.256x251.png'
+                                ? require('../../images/Felix.png')
+                                : require('../../images/github.256x251.png')
                         }
                         alt={`For ${title}`}
                     />
