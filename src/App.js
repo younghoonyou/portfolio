@@ -50,7 +50,14 @@ const App = () => {
                         <Room bgColor={bgColor} setBgColor={setBgColor} />
                     </Suspense>
                 </Stage>
-                <OrbitControls />
+                <OrbitControls
+                    target={cameraVector}
+                    enableZoom={false}
+                    enablePan={false}
+                    rotateSpeed={0.3}
+                    dampingFactor={0.1}
+                    enabled={true}
+                />
             </Canvas>
             <Stepper bgColor={bgColor} />
         </div>

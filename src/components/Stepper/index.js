@@ -35,12 +35,6 @@ const StepperContainer = ({ bgColor }) => {
             case 0:
                 dispatch(setCamera('init'));
                 break;
-            case 2:
-                dispatch(setCamera('book'));
-                break;
-            case 3:
-                dispatch(setCamera('contact'));
-                break;
             case 1:
                 dispatch(setCamera('monitor'));
                 break;

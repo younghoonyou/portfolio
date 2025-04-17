@@ -60,11 +60,6 @@ const Room = ({ bgColor, setBgColor }) => {
 
     const cameraPosition = useSelector((state) => state.camera.position);
     const cameraSet = useSelector((state) => state.camera.cameraSet);
-    const targetVector = new THREE.Vector3(
-        cameraPosition.x,
-        cameraPosition.y,
-        cameraPosition.z,
-    );
 
     const target = useSelector((state) => state.camera.target);
 
@@ -102,8 +97,7 @@ const Room = ({ bgColor, setBgColor }) => {
 
     useEffect(() => {
         camera.position.set(cameraSet[0], cameraSet[1], cameraSet[2]);
-        camera.position.lerp(targetVector, 0.2);
-    }, [target, cameraSet, targetVector]);
+    }, [target, cameraSet]);
 
     useEffect(() => {
         const handleKeyDown = (event) => {
