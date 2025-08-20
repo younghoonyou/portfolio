@@ -5,6 +5,14 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Route53 from '../../assets/Arch_Amazon-Route-53_32.png';
+import VPCLattice from '../../assets/Arch_Amazon-VPC-Lattice_32.png';
+import DX from '../../assets/Arch_AWS-Direct-Connect_32.png';
+import TGW from '../../assets/Arch_AWS-Transit-Gateway_32.png';
+import ELB from '../../assets/Arch_Elastic-Load-Balancing_32.png';
+import VPC from '../../assets/Virtual-private-cloud-VPC_32.png';
+import VPN from '../../assets/Arch_AWS-Site-to-Site-VPN_32.png';
+import awsArch from '../../assets/aws_arch.png';
 
 const PROJECT_DETAIL = {
     Felix: {
@@ -92,6 +100,33 @@ const PROJECT_DETAIL = {
              <img src='https://user-images.githubusercontent.com/69233428/157981228-7a8dd43e-2b86-45e9-9617-a57b37183c0c.gif' width=\"500px\"/>",
         github: 'https://github.com/younghoonyou/fourtor_ECU',
     },
+    AWS: {
+        stack: [
+            'https://custom-icon-badges.demolab.com/badge/AWS-%23FF9900.svg?logo=aws&logoColor=white',
+            'line',
+            Route53,
+            VPN,
+            VPC,
+            VPCLattice,
+            TGW,
+            DX,
+            ELB,
+        ],
+        position: 'Cloud Support Engineer',
+        period: 'Dec 2024 - Current',
+        contentText: `<ul><li>Analyze and support customer network issues in AWS services VPC, ELB, Route53, DX, TGW, VPN</li>\
+            <li>Provided technical support and guidance to optimize cloud network performance and ensure service reliability</li> \
+            <li>Collaborated with internal engineering teams to escalate complex issues and improve platform resiliency</li> \
+            </ul></br>\
+            <img src="${awsArch}" width="500px">`,
+        github: 'https://aws.amazon.com/',
+    },
+};
+
+const Images = {
+    Felix: require('../../images/Felix.png'),
+    Github: require('../../images/github.256x251.png'),
+    AWS: require('../../images/AWS.png'),
 };
 
 const ProjectDetail = ({ open, setOpen, title }) => {
@@ -102,35 +137,121 @@ const ProjectDetail = ({ open, setOpen, title }) => {
     const handleClose = () => {
         setOpen(false);
     };
+    const useViewport = () => {
+        const [width, setWidth] = React.useState(window.innerWidth);
+
+        React.useEffect(() => {
+            const handleWindowResize = () => setWidth(window.innerWidth);
+            window.addEventListener('resize', handleWindowResize);
+            return () =>
+                window.removeEventListener('resize', handleWindowResize);
+        }, []);
+
+        return { width };
+    };
+
+    const { width } = useViewport();
+    const isMobile = width <= 768;
+
     return (
         <Dialog
             open={open}
             onClose={handleClose}
+            maxWidth="md"
+            fullScreen={isMobile}
             sx={{
-                '& .MuiPaper-root': { width: '100%' },
+                '& .MuiPaper-root': {
+                    width: '100%',
+                    maxWidth: isMobile ? '100%' : '900px',
+                    margin: isMobile ? '0' : 'auto',
+                    height: isMobile ? '100%' : 'auto',
+                },
             }}
         >
-            <DialogTitle>
-                <h1>{title}</h1>
-                <h4>👨‍💻{PROJECT_DETAIL[title].position}</h4>
-                <h4>🗓️ {PROJECT_DETAIL[title].period}</h4>
-                <div align="center">
-                    <h3>🛠Tech Stack🛠</h3>
-                    {PROJECT_DETAIL[title].stack.map((imgs) => {
-                        return imgs === 'line' ? (
-                            <br />
-                        ) : (
-                            <img src={imgs} style={{ marginRight: '10px' }} />
-                        );
-                    })}
+            <DialogTitle
+                sx={{
+                    padding: isMobile ? '20px 16px' : '24px',
+                    textAlign: isMobile ? 'center' : 'left',
+                }}
+            >
+                <h1
+                    style={{
+                        fontSize: isMobile ? '24px' : '32px',
+                        margin: '0 0 10px 0',
+                    }}
+                >
+                    {title}
+                </h1>
+                <h4 style={{ margin: '5px 0' }}>
+                    👨‍💻{PROJECT_DETAIL[title].position}
+                </h4>
+                <h4 style={{ margin: '5px 0' }}>
+                    🗓️ {PROJECT_DETAIL[title].period}
+                </h4>
+                <div align="center" style={{ marginTop: '20px' }}>
+                    <h3 style={{ fontSize: isMobile ? '18px' : '20px' }}>
+                        🛠Tech Stack🛠
+                    </h3>
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            justifyContent: 'center',
+                            gap: '10px',
+                        }}
+                    >
+                        {PROJECT_DETAIL[title].stack.map((imgs, index) => {
+                            return imgs === 'line' ? (
+                                <div
+                                    key={`${index}-${title}`}
+                                    style={{
+                                        flexBasis: '100%',
+                                        height: '10px',
+                                    }}
+                                />
+                            ) : (
+                                <div>
+                                    <img
+                                        key={`${index}-${imgs}-${title}`}
+                                        src={imgs}
+                                        style={{
+                                            height: isMobile ? '28px' : '30px',
+                                            maxWidth: '100%',
+                                        }}
+                                        alt="Tech stack"
+                                    />
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
             </DialogTitle>
-            <DialogContent style={{ height: '600px' }}>
+            <DialogContent
+                sx={{
+                    height: isMobile ? 'calc(100vh - 300px)' : '600px',
+                    padding: isMobile ? '16px' : '24px',
+                }}
+            >
                 <DialogContentText
-                    style={{
+                    sx={{
                         width: '100%',
                         overflowY: 'auto',
                         fontWeight: 'bold',
+                        fontSize: isMobile ? '16px' : '14px',
+                        lineHeight: isMobile ? '1.6' : '1.5',
+                        '& video': {
+                            maxWidth: '100%',
+                            height: 'auto',
+                            width: isMobile ? '100%' : '500px',
+                        },
+                        '& img': {
+                            maxWidth: '100%',
+                            height: 'auto',
+                            width: isMobile ? '100%' : '500px',
+                        },
+                        '& h2, & h3': {
+                            fontSize: isMobile ? '20px' : '24px',
+                        },
                     }}
                 >
                     <div
@@ -146,19 +267,30 @@ const ProjectDetail = ({ open, setOpen, title }) => {
                 </DialogContentText>
             </DialogContent>
 
-            <DialogActions>
-                <Button onClick={handleGithubRepo}>
+            <DialogActions sx={{ padding: isMobile ? '16px' : '24px' }}>
+                <Button onClick={handleGithubRepo} sx={{ marginRight: 'auto' }}>
                     <img
-                        width={title === 'Felix' ? 80 : 40}
-                        src={
+                        width={
                             title === 'Felix'
-                                ? require('../../images/Felix.png')
-                                : require('../../images/github.256x251.png')
+                                ? isMobile
+                                    ? 60
+                                    : 80
+                                : isMobile
+                                  ? 36
+                                  : 40
                         }
+                        src={Images[title]}
                         alt={`For ${title}`}
                     />
                 </Button>
-                <Button variant="contained" onClick={handleClose}>
+                <Button
+                    variant="contained"
+                    onClick={handleClose}
+                    sx={{
+                        fontSize: isMobile ? '16px' : '14px',
+                        padding: isMobile ? '10px 20px' : '6px 16px',
+                    }}
+                >
                     Close
                 </Button>
             </DialogActions>

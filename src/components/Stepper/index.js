@@ -29,23 +29,37 @@ const StepperContainer = ({ bgColor }) => {
         book: 2,
         contact: 3,
     };
+    const useViewport = () => {
+        const [width, setWidth] = React.useState(window.innerWidth);
+
+        React.useEffect(() => {
+            const handleWindowResize = () => setWidth(window.innerWidth);
+            window.addEventListener('resize', handleWindowResize);
+            return () =>
+                window.removeEventListener('resize', handleWindowResize);
+        }, []);
+
+        return { width };
+    };
+    const { width } = useViewport();
+    const isMobile = width <= 768;
     const target = useSelector((state) => state.camera.target);
     const handleStep = (index) => {
         switch (index) {
             case 0:
-                dispatch(setCamera('init'));
+                dispatch(setCamera({ type: 'init' }));
                 break;
             case 1:
-                dispatch(setCamera('monitor'));
+                dispatch(setCamera({ type: 'monitor' }));
                 break;
             case 2:
-                dispatch(setCamera('book'));
+                dispatch(setCamera({ type: 'book' }));
                 break;
             case 3:
-                dispatch(setCamera('contact'));
+                dispatch(setCamera({ type: 'contact' }));
                 break;
             default:
-                dispatch(setCamera('init'));
+                dispatch(setCamera({ type: 'init' }));
                 break;
         }
     };
@@ -69,24 +83,35 @@ const StepperContainer = ({ bgColor }) => {
                     display: 'flex',
                     justifyContent: 'space-around',
                     '& .MuiStepLabel-root circle': {
-                        color: 'gray',
+                        color: bgColor ? '#3f72af' : '#3f72af',
                     },
                     '& .Mui-active circle': {
-                        color: '#1976D2',
+                        color: bgColor ? '#ff9e7d' : '#ff9e7d',
                     },
                     '& .MuiStepConnector-line': {
                         height: '90%',
+                        borderColor: bgColor ? '#3f72af' : '#3f72af',
                     },
                     '& .MuiStepLabel-label': {
                         color: bgColor
-                            ? 'white !important'
-                            : 'black !important',
+                            ? '#f9f7f7 !important'
+                            : '#16213e !important',
+                        fontFamily: 'Poppins, sans-serif !important',
+                        fontSize: isMobile
+                            ? '0.4rem !important'
+                            : '1rem !important',
                     },
                     '& .MuiStep-root': {
                         borderRadius: '10px',
+                        padding: '10px',
+                        margin: '5px 0',
+                        transition: 'all 0.3s ease',
                         '&:hover': {
                             cursor: 'pointer',
-                            border: '0.1rem solid white',
+                            background: bgColor
+                                ? 'rgba(15, 52, 96, 0.6)'
+                                : 'rgba(219, 226, 239, 0.6)',
+                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
                         },
                     },
                 }}

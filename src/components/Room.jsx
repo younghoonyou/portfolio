@@ -3,7 +3,6 @@ import { useGLTF, Edges, Html } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import ProjectDetail from './Projects';
 import { useDispatch, useSelector } from 'react-redux';
-import * as THREE from 'three';
 import { setCamera } from '../reducer/cameraReducer';
 import GLBModel from '../model/room.glb';
 
@@ -53,7 +52,6 @@ const Room = ({ bgColor, setBgColor }) => {
     const { nodes, materials } = useGLTF(GLBModel);
 
     const [title, setTitle] = useState('Felix');
-    const [cameraTarget, setCameraTarget] = useState(new THREE.Vector3());
 
     const [open, setOpen] = useState(false);
     const { camera } = useThree();
@@ -72,11 +70,11 @@ const Room = ({ bgColor, setBgColor }) => {
     };
 
     const handleMonitor = () => {
-        dispatch(setCamera('monitor'));
+        dispatch(setCamera({ type: 'monitor', device: '' }));
     };
 
     const handlePhone = () => {
-        dispatch(setCamera('contact'));
+        dispatch(setCamera({ type: 'contact' }));
     };
 
     const handleBooks = (e) => {
@@ -84,7 +82,7 @@ const Room = ({ bgColor, setBgColor }) => {
         if (target === 'book') {
             handleClickOpen();
         }
-        dispatch(setCamera('book'));
+        dispatch(setCamera({ type: 'book' }));
     };
 
     const handleContact = (e, name) => {
@@ -106,7 +104,7 @@ const Room = ({ bgColor, setBgColor }) => {
                 event.key === 'Esc' ||
                 event.keyCode === 27
             ) {
-                dispatch(setCamera('init'));
+                dispatch(setCamera({ type: 'init' }));
             }
         };
         window.addEventListener('keydown', handleKeyDown);
@@ -300,7 +298,7 @@ const Room = ({ bgColor, setBgColor }) => {
                     />
                 </group>
                 <group
-                    position={[-2.132, 4.541, -4.021]}
+                    position={[-1.832, 4.541, -4.021]}
                     rotation={[2.793, 0, 0]}
                     scale={0.2}
                 >
@@ -320,7 +318,7 @@ const Room = ({ bgColor, setBgColor }) => {
                     />
                 </group>
                 <group
-                    position={[-2.859, 4.541, -3.894]}
+                    position={[-3.159, 4.541, -3.894]}
                     rotation={[2.744, 0.489, 0.195]}
                     scale={0.2}
                 >
@@ -337,6 +335,26 @@ const Room = ({ bgColor, setBgColor }) => {
                     <mesh
                         geometry={nodes.cook_book_3.geometry}
                         material={materials['Sheets.002']}
+                    />
+                </group>
+                <group
+                    position={[-2.474, 4.578, -3.826]}
+                    rotation={[2.723, 0.57, 0.236]}
+                    scale={0.2}
+                >
+                    <mesh
+                        geometry={nodes.aws_book.geometry}
+                        material={materials['Images.004']}
+                    />
+                    <HoverableMesh
+                        geometry={nodes.aws_book_1.geometry}
+                        material={materials['Book_cover.004']}
+                        onClick={handleBooks}
+                        name="AWS"
+                    />
+                    <mesh
+                        geometry={nodes.aws_book_2.geometry}
+                        material={materials['Sheets.004']}
                     />
                 </group>
                 <Html>

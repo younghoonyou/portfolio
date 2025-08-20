@@ -27,25 +27,52 @@ const App = () => {
             }}
         >
             <Canvas
-                style={{ background: bgColor ? 'black' : 'white' }}
+                style={{
+                    background: bgColor
+                        ? 'radial-gradient(circle, #1a1a2e 0%, #16213e 50%, #0f3460 100%)'
+                        : 'radial-gradient(circle, #f9f7f7 0%, #dbe2ef 50%, #3f72af 100%)',
+                }}
                 camera={{ position: cameraVector, fov: 50 }}
             >
                 <Html
-                    position={[0, 4, 0]}
+                    position={[0, 5, 0]}
                     rotation={[0, Math.PI / 4, 0]}
                     style={{
-                        backgroundColor: 'rgba(255, 255, 255, 0.8)',
-                        padding: '10px',
-                        borderRadius: '5px',
+                        backgroundColor: bgColor
+                            ? 'rgba(15, 52, 96, 0.8)'
+                            : 'rgba(219, 226, 239, 0.9)',
+                        color: bgColor ? '#f9f7f7' : '#16213e',
+                        padding: '20px',
+                        borderRadius: '10px',
+                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+                        fontFamily: 'Poppins, sans-serif',
+                        maxWidth: '300px',
                         display: target !== 'init' ? 'none' : 'block',
                     }}
                     transform
                     occlude
                 >
-                    I'm Younghoon Yu, a passionate developer.
+                    <div style={{ textAlign: 'center' }}>
+                        <h2 style={{ margin: '0 0 10px 0' }}>
+                            Welcome to Hoon space
+                        </h2>
+                        <p style={{ margin: 0 }}>Work & Project & Contacts</p>
+                    </div>
                 </Html>
+                <fog
+                    attach="fog"
+                    color={bgColor ? '#16213e' : '#dbe2ef'}
+                    near={15}
+                    far={30}
+                />
+
                 <Stage preset="rembrandt" intensity={1} environment="sunset">
                     <ambientLight intensity={2} />
+                    <pointLight
+                        position={[0, 5, 0]}
+                        intensity={0.8}
+                        color={bgColor ? '#ff9e7d' : '#ffd89b'}
+                    />
                     <Suspense fallback={null}>
                         <Room bgColor={bgColor} setBgColor={setBgColor} />
                     </Suspense>

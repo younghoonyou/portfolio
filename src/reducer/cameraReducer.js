@@ -15,6 +15,20 @@ const CAMERA_POSITION = {
     contact: [2.7, 3, 0],
 };
 
+const MOBILE_OBJECT_POSITION = {
+    init: new Vector3(9.5, 9.5, 9.5),
+    monitor: new Vector3(-1, 2, -1),
+    book: new Vector3(-3, 4.5, -5),
+    contact: new Vector3(2.8, -0.2, 0),
+};
+
+// const MOBILE_CAMER_POSITION = {
+//     init: [12.3, 12.3, 12.3],
+//     monitor: [-0.5, 2, -1],
+//     book: [-3, 4.5, -1],
+//     contact: [2.7, 3, 0],
+// };
+
 const initialState = {
     position: {
         x: OBJECT_POSITION.init.x,
@@ -23,6 +37,7 @@ const initialState = {
     },
     cameraSet: CAMERA_POSITION.init,
     target: 'init',
+    isMobile: false,
 };
 
 const cameraSlice = createSlice({
@@ -30,19 +45,28 @@ const cameraSlice = createSlice({
     initialState,
     reducers: {
         setCamera(state, action) {
-            const vector3Position = OBJECT_POSITION[action.payload];
-            state.target = action.payload;
+            const { type, device } = action.payload;
+
+            const vector3Position =
+                device === 'mobile'
+                    ? MOBILE_OBJECT_POSITION[type]
+                    : OBJECT_POSITION[type];
+            state.target = type;
 
             state.position = {
                 x: vector3Position.x,
                 y: vector3Position.y,
                 z: vector3Position.z,
             };
-            state.cameraSet = CAMERA_POSITION[action.payload];
+            state.cameraSet = CAMERA_POSITION[type];
+            console.log(state.cameraSet);
+        },
+        setIsMobile(state, action) {
+            state.isMobile = action.payload;
         },
     },
 });
 
-export const { setCamera } = cameraSlice.actions;
+export const { setCamera, setIsMobile } = cameraSlice.actions;
 
 export default cameraSlice.reducer;
